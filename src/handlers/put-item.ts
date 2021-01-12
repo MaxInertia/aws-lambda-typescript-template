@@ -21,6 +21,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: unknown): Pr
         console.log(result.ConsumedCapacity)
         return successResponse(body);
     } catch (error) {
+        console.log(error)
         return unexpectedErrorResponse(error);
     }
 }

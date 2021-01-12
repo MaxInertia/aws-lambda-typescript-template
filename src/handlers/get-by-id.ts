@@ -28,6 +28,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: unknown): Pr
       return resourceNotFoundResponse()
     }
   } catch(error) {
+    console.log(error)
     return unexpectedErrorResponse(error)
   }
 }
