@@ -1,16 +1,17 @@
-// Create clients and set shared const values outside of the handler.
-
-// Create a DocumentClient that represents the query to add an item
-const dynamodb = require('aws-sdk/clients/dynamodb');
-const docClient = new dynamodb.DocumentClient();
+import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
+import * as dynamodb from 'aws-sdk/clients/dynamodb';
 
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.SAMPLE_TABLE;
+const docClient = new dynamodb.DocumentClient();
 
 /**
  * A simple example includes a HTTP post method to add one item to a DynamoDB table.
  */
-exports.putItemHandler = async (event) => {
+exports.putItemHandler = async (
+    event: APIGatewayProxyEvent,
+    context: unknown,
+): Promise<APIGatewayProxyResult> => {
     if (event.httpMethod !== 'POST') {
         throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`);
     }
@@ -24,7 +25,7 @@ exports.putItemHandler = async (event) => {
 
     // Creates a new item, or replaces an old item with a new item
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
-    var params = {
+    const params = {
         TableName : tableName,
         Item: { id : id, name: name }
     };
