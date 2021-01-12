@@ -3,7 +3,7 @@ import {getItem} from "../dynamo-db";
 import {unexpectedErrorResponse, resourceNotFoundResponse, successResponse} from "../errors";
 
 /**
- * A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
+ * An example HTTP get method to get one item by id from a DynamoDB table.
  */
 export const handler = async (event: APIGatewayProxyEvent, context: unknown): Promise<APIGatewayProxyResult> => {
   if (event.httpMethod !== "GET") {

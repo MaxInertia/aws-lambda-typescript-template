@@ -14,7 +14,7 @@ export const resourceNotFoundResponse = () => ({
 	body: JSON.stringify("resource not found"),
 })
 
-export const successResponse = (item: any) => ({
+export const successResponse = (item: Record<string, unknown> | Record<string, unknown>[]) => ({
 	statusCode: 200,
 	body: JSON.stringify(item)
 })

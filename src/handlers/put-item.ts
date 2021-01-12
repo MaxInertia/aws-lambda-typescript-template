@@ -1,9 +1,9 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {putItem} from "../dynamo-db";
-import {badRequestErrorResponse} from "../errors";
+import {badRequestErrorResponse, successResponse, unexpectedErrorResponse} from "../errors";
 
 /**
- * A simple example includes a HTTP post method to add one item to a DynamoDB table.
+ * An example HTTP post method to add one item to a DynamoDB table.
  */
 export const handler = async (event: APIGatewayProxyEvent, context: unknown): Promise<APIGatewayProxyResult> => {
     if (event.httpMethod !== 'POST') {
@@ -19,14 +19,8 @@ export const handler = async (event: APIGatewayProxyEvent, context: unknown): Pr
     try {
         const result = await putItem(body)
         console.log(result.ConsumedCapacity)
-        return {
-            statusCode: 200,
-            body: JSON.stringify(body)
-        };
+        return successResponse(body);
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({message: "unexpected error occurred", error}),
-        };
+        return unexpectedErrorResponse(error);
     }
 }
