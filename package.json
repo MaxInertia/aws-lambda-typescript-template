@@ -1,6 +1,6 @@
 {
-    "name": "delete-test-01",
-    "description": "delete-test-01-description",
+    "name": "template",
+    "description": "template",
     "version": "0.0.1",
     "private": true,
     "dependencies": {
@@ -16,7 +16,7 @@
     "scripts": {
         "compile": "tsc",
         "deploy": "npm run compile && sam deploy --guided",
-        "test": "jest --roots __tests__/unit",
+        "test": "npm run compile && jest --roots __tests__/unit",
         "integ-test": "jest --roots __tests__/integration"
     }
 }
