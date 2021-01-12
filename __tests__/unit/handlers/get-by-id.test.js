@@ -1,5 +1,5 @@
 // Import all functions from get-by-id.js
-const lambda = require('../../../build/get-by-id.js');
+const lambda = require('../../../build/handlers/get-by-id.js');
 // Import dynamodb from aws-sdk
 const dynamodb = require('aws-sdk/clients/dynamodb');
 

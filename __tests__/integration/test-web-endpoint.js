@@ -1,6 +1,11 @@
 const AWS = require("aws-sdk");
 const https = require("https");
 
+process.env.AWS_SAM_STACK_NAME = "sam-app-template"
+
+// TODO: Move this to a env file or something
+const AWS_REGION = "us-east-1"
+
 /**
  * Get stack name from environment variable AWS_SAM_STACK_NAME and make an API call to verify the stack exists.
  * throw exception if AWS_SAM_STACK_NAME is not set.
@@ -14,7 +19,7 @@ const getAndVerifyStackName = async () => {
     );
   }
 
-  const client = new AWS.CloudFormation();
+  const client = new AWS.CloudFormation({region: AWS_REGION});
   try {
     await client
       .describeStacks({
@@ -45,7 +50,7 @@ describe("Test Web Endpoint", function () {
   beforeAll(async () => {
     const stackName = await getAndVerifyStackName();
 
-    const client = new AWS.CloudFormation();
+    const client = new AWS.CloudFormation({region: AWS_REGION});
     const response = await client
       .describeStacks({
         StackName: stackName,

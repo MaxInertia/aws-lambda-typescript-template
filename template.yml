@@ -22,7 +22,8 @@ Resources:
   getAllItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: build/get-all-items.getAllItemsHandler
+      FunctionName: !Sub ${AWS::StackName}-getAll
+      Handler: build/handlers/get-all-items.handler
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -48,7 +49,8 @@ Resources:
   getByIdFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: build/get-by-id.getByIdHandler
+      FunctionName: !Sub ${AWS::StackName}-getById
+      Handler: build/handlers/get-by-id.handler
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -74,7 +76,8 @@ Resources:
   putItemFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: build/put-item.putItemHandler
+      FunctionName: !Sub ${AWS::StackName}-put
+      Handler: build/handlers/put-item.handler
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -98,6 +101,7 @@ Resources:
 
   # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
   SampleTable:
+    TableName: !Sub ${AWS::StackName}
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:

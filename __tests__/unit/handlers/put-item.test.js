@@ -1,5 +1,5 @@
 // Import all functions from put-item.js
-const lambda = require('../../../build/put-item.js');
+const lambda = require('../../../build/handlers/put-item.js');
 // Import dynamodb from aws-sdk
 const dynamodb = require('aws-sdk/clients/dynamodb');
 
