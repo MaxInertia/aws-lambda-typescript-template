@@ -23,7 +23,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-getAll
-      Handler: build/handlers/get-all-items.handler
+      CodeUri: build
+      Handler: handlers/get-all-items.handler
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -36,6 +37,8 @@ Resources:
         Variables:
           # Make table name accessible as environment variable from function code during execution
           SAMPLE_TABLE: !Ref SampleTable
+      Layers:
+        - !Ref NPMDependenciesLayer
       Events:
         Api:
           Type: Api
@@ -50,7 +53,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-getById
-      Handler: build/handlers/get-by-id.handler
+      CodeUri: build
+      Handler: handlers/get-by-id.handler
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -63,6 +67,8 @@ Resources:
         Variables:
           # Make table name accessible as environment variable from function code during execution
           SAMPLE_TABLE: !Ref SampleTable
+      Layers:
+        - !Ref NPMDependenciesLayer
       Events:
         Api:
           Type: Api
@@ -77,7 +83,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-put
-      Handler: build/handlers/put-item.handler
+      CodeUri: build
+      Handler: handlers/put-item.handler
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -90,6 +97,8 @@ Resources:
         Variables:
           # Make table name accessible as environment variable from function code during execution
           SAMPLE_TABLE: !Ref SampleTable
+      Layers:
+        - !Ref NPMDependenciesLayer
       Events:
         Api:
           Type: Api
@@ -98,6 +107,17 @@ Resources:
             Method: POST
   # Simple syntax to create a DynamoDB table with a single attribute primary key, more in
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
+
+  NPMDependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: npm-dependencies
+      Description: Dependencies for app [aws-sdk]
+      ContentUri: dependencies/
+      CompatibleRuntimes:
+        - nodejs12.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
 
   # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
   SampleTable:
