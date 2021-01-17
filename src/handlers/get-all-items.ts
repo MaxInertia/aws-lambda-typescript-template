@@ -1,6 +1,6 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {getAllItems} from "../dynamo-db";
-import {successResponse, unexpectedErrorResponse} from "../errors";
+import {successResponse, unexpectedErrorResponse} from "../responses";
 
 /**
  * An example HTTP get method to get all entries from a DynamoDB table.

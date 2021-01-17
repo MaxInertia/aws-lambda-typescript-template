@@ -1,6 +1,6 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {putItem} from "../dynamo-db";
-import {badRequestErrorResponse, successResponse, unexpectedErrorResponse} from "../errors";
+import {badRequestErrorResponse, successResponse, unexpectedErrorResponse} from "../responses";
 
 /**
  * An example HTTP post method to add one item to a DynamoDB table.
